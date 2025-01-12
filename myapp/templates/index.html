@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO DO Reminder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4F46E5;
+            --primary-hover: #4338CA;
+            --secondary-color: #818CF8;
+            --background-color: #F8FAFC;
+            --text-primary: #1E293B;
+            --text-secondary: #64748B;
+            --card-background: #FFFFFF;
+            --border-color: #E2E8F0;
+            --input-background: #F8FAFC;
+            --success-color: #10B981;
+            --error-color: #EF4444;
+            --warning-color: #F59E0B;
+            --info-color: #3B82F6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .login-container {
+            display: flex;
+            width: 1000px;
+            background-color: var(--card-background);
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .login-left {
+            flex: 1;
+            padding: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-left::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.08'/%3E%3C/svg%3E");
+            opacity: 0.4;
+        }
+
+        .login-right {
+            flex: 1;
+            padding: 60px;
+            background-color: var(--card-background);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo img {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .welcome-text {
+            margin: 48px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .welcome-text h1 {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: white;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .welcome-text p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .login-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 28px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 15px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 18px;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 16px 20px 16px 50px;
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background-color: var(--input-background);
+            color: var(--text-primary);
+        }
+
+        .login-form input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background-color: white;
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+        }
+
+        .login-form input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .remember-me label {
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .forgot-password {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: color 0.2s ease;
+        }
+
+        .forgot-password:hover {
+            color: var(--primary-hover);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 16px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .login-btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .illustration {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+        }
+
+        .illustration img {
+            max-width: 15%;
+            height: auto;
+            filter: brightness(1);
+        }
+
+        #message-container {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 1000;
+        }
+
+        .message-modal {
+            padding: 16px 24px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 8px 24px -4px rgba(0, 0, 0, 0.1);
+            font-size: 15px;
+            font-weight: 500;
+            max-width: 320px;
+            transform: translateX(0);
+            opacity: 1;
+            transition: all 0.3s ease;
+        }
+
+        .message-modal.success { background-color: var(--success-color); }
+        .message-modal.error { background-color: var(--error-color); }
+        .message-modal.warning { background-color: var(--warning-color); }
+        .message-modal.info { background-color: var(--info-color); }
+
+        @media (max-width: 968px) {
+            .login-container {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .login-left, .login-right {
+                padding: 40px;
+            }
+
+            .login-form {
+                max-width: 100%;
+            }
+
+            .welcome-text h1 {
+                font-size: 32px;
+            }
+
+            .welcome-text p {
+                font-size: 16px;
+            }
+
+            .illustration {
+                margin-top: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-left, .login-right {
+                padding: 30px;
+            }
+
+            .logo-text {
+                font-size: 24px;
+            }
+
+            .welcome-text h1 {
+                font-size: 28px;
+            }
+
+            .checkbox-wrapper {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="message-container">
+        {% if messages %}
+            {% for message in messages %}
+            <div class="message-modal {{ message.tags }} enter">
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="login-container">
+        <div class="login-left">
+            <div class="logo">
+                <img src="https://media0.giphy.com/media/4nIWEtNs0VDw0JgnTN/giphy.gif?cid=6c09b952dj5wkp527qd2yatpo3wpxrphhpkyp7w8kbakt8ut&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=s" alt="todo list icon">
+                <div class="logo-text">TO DO LIST</div>
+            </div>
+            <div class="welcome-text">
+                <h1>Welcome Back!</h1>
+                <p>Sign in to continue to your personal task management dashboard. Stay organized and productive!</p>
+            </div>
+            <div class="illustration">
+                <img src="https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/logos/pythonanywhere-78e3tq711aw5ypijo4cq7p.png/pythonanywhere-6zjbid0md3rl265y9140td.png?_a=DAJFJtWIZAAC" alt="Illustration">
+                Powered by PythonAnywhere
+            </div>
+        </div>
+        <div class="login-right">
+            <form id="loginForm" class="login-form" method="POST" action="{% url 'home' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user"></i>
+                        <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    </div>
+                </div>
+                <div class="checkbox-wrapper">
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe" name="remember-me">
+                        <label for="rememberMe">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Create Account</a>
+                </div>
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Sign In
+                </button>
+            </form>            
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const messageModals = document.querySelectorAll('.message-modal');
+            
+            messageModals.forEach(modal => {
+                // Add entrance animation
+                modal.style.transform = 'translateX(0)';
+                modal.style.opacity = '1';
+                
+                // Set timeout for auto-dismissal
+                setTimeout(() => {
+                    modal.style.opacity = '0';
+                    modal.style.transform = 'translateX(100%)';
+                    setTimeout(() => modal.remove(), 300);
+                }, 5000);
+
+                // Click to dismiss
+                modal.addEventListener('click', () => {
+                    modal.style.opacity = '0';
+                    modal.style.transform = 'translateX(100%)';
+                    setTimeout(() => modal.remove(), 300);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
